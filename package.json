@@ -1,7 +1,7 @@
 {
   "name": "it-pair",
   "description": "pair a source async iterable stream and a sink async iterable stream",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "homepage": "https://github.com/alanshaw/it-pair",
   "repository": {
     "type": "git",
