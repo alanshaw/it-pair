@@ -1,30 +1,31 @@
 'use strict'
 
-//a pair of pull streams where one drains from the other
-module.exports = function () {
-  var _read, waiting
-  function sink (read) {
-    if('function' !== typeof read)
-      throw new Error('read must be function')
+const getIterator = require('get-iterator')
 
-    if(_read)
-      throw new Error('already piped')
-    _read = read
-    if(waiting) {
-      var _waiting = waiting
-      waiting = null
-      _read.apply(null, _waiting)
+// a pair of streams where one drains from the other
+module.exports = function pair () {
+  let _source, onSource
+
+  const sink = async source => {
+    if (_source) throw new Error('already piped')
+    _source = getIterator(source)
+    if (onSource) onSource(_source)
+  }
+
+  const source = {
+    [Symbol.asyncIterator] () {
+      return this
+    },
+    next () {
+      if (_source) return _source.next()
+      return new Promise(resolve => {
+        onSource = source => {
+          onSource = null
+          resolve(source.next())
+        }
+      })
     }
   }
-  function source (abort, cb) {
-    if(_read)
-      _read(abort, cb)
-    else
-      waiting = [abort, cb]
-  }
 
-  return {
-    source: source, sink: sink
-  }
+  return { sink, source }
 }
-

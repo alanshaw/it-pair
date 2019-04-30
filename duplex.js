@@ -1,7 +1,8 @@
 
 var Pair = require('./')
 module.exports = function () {
-  var a = Pair(), b = Pair()
+  var a = Pair()
+  var b = Pair()
   return [
     {
       source: a.source,
