@@ -27,11 +27,11 @@ console.log(values) //[1, 2, 3]
 ```
 
 This is particularly useful for creating duplex streams especially
-around servers. Use `pull-pair/duplex` to get two duplex streams
+around servers. Use `it-pair/duplex` to get two duplex streams
 that are attached to each other.
 
 ``` js
-var DuplexPair = require('pull-pair/duplex')
+var DuplexPair = require('it-pair/duplex')
 
 var d = DuplexPair()
 
