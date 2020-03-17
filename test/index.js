@@ -20,7 +20,6 @@ tape('simple - error', async function (t) {
   try {
     await pipe(p.source, collect)
   } catch (_err) {
-    console.log(_err)
     t.equal(_err, err)
     t.end()
   }
