@@ -6,7 +6,7 @@ const getIterator = require('get-iterator')
 module.exports = function pair () {
   let _source, onSource
 
-  const sink = async source => {
+  const sink = source => {
     if (_source) throw new Error('already piped')
     _source = getIterator(source)
     if (onSource) onSource(_source)
